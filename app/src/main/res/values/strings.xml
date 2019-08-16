@@ -72,7 +72,7 @@
     <!--<string name="uicon">头像</string>-->
     <!--<string name="btnstart">点击开始测量</string>-->
     <!--<string name="about_text">这是一段长长的关于说明</string>-->
-    <!--<string name="empty_data">暂时没有数据哦~</string>-->
+    <string name="empty_data">暂时没有数据哦~</string>
     <!--<string name="gjth">估计糖化</string>-->
     <!--<string name="pzxt">平均血糖</string>-->
     <!--<string name="xtbd">血糖波动</string>-->
