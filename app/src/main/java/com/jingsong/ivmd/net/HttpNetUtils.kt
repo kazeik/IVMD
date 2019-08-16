@@ -6,7 +6,7 @@ import android.text.TextUtils
 import com.google.gson.Gson
 import com.jingsong.ivmd.BuildConfig
 import com.jingsong.ivmd.iter.ApiInter
-import com.jingsong.patient.utils.ApiUtils
+import com.jingsong.ivmd.utils.ApiUtils
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,19 +26,19 @@ import java.util.concurrent.TimeUnit
 class HttpNetUtils : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val tagUrl = chain.request().url().encodedPath()
-        val time = timeHash[tagUrl]
+//        val tagUrl = chain.request().url().encodedPath()
+//        val time = timeHash[tagUrl]
         val request = chain.request().newBuilder()
-            .header(
-                "Authorization", "Bearer ${if (TextUtils.isEmpty(ApiUtils.token)) {
-                    ""
-                } else {
-                    ApiUtils.token
-                }}"
-            )
-            .header("X-Request-Timestamp", "$time")
+//            .header(
+//                "Authorization", "Bearer ${if (TextUtils.isEmpty(ApiUtils.token)) {
+//                    ""
+//                } else {
+//                    ApiUtils.token
+//                }}"
+//            )
+//            .header("X-Request-Timestamp", "$time")
             .build()
-        timeHash.remove(tagUrl)
+//        timeHash.remove(tagUrl)
         return chain.proceed(request)
     }
 

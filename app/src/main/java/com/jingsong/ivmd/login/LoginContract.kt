@@ -10,7 +10,10 @@ import com.jingsong.ivmd.mvp.BaseView
  */
 
 class LoginContract {
-    interface View : BaseView
+    interface View : BaseView{
+    }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View>{
+        fun login(phone:String?,pass:String?)
+    }
 }

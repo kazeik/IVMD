@@ -1,6 +1,6 @@
-package com.jingsong.patient.utils
+package com.jingsong.ivmd.utils
 
-import com.jingsong.patient.BuildConfig
+import com.jingsong.ivmd.BuildConfig
 import com.jingsong.ivmd.iter.ApiInter
 import com.jingsong.ivmd.iter.DownloadListener
 import com.jingsong.ivmd.utils.Utils.logs

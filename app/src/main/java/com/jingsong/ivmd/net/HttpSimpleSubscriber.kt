@@ -27,16 +27,16 @@ abstract class HttpSimpleSubscriber<T> : Observer<Response<T>> {
                     onSuccess(p0.body(), p0.code())
                 }
                 else -> {
-                    val errorStr = p0.errorBody()?.string()
-                    try {
-                        val error = parserJson<ErrorModel>(errorStr!!)
-                        if (p0.code() == 401)
-                            onRelogin()
-                        else
-                            onError(p0.code(), error.errorDescription)
-                    } catch (ex: Exception) {
-                        onError(p0.code(), errorStr)
-                    }
+//                    val errorStr = p0.errorBody()?.string()
+//                    try {
+//                        val error = parserJson<ErrorModel>(errorStr!!)
+//                        if (p0.code() == 401)
+//                            onRelogin()
+//                        else
+//                            onError(p0.code(), error.errorDescription)
+//                    } catch (ex: Exception) {
+                        onError(p0.code(), "")
+//                    }
                 }
             }
         } catch (e: Exception) {
