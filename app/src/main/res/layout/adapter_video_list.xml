@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="@dimen/dp_0"
+                android:id="@+id/tvName"
+                tools:text="设备名称："
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_0"
+                android:id="@+id/tvId"
+                tools:text="设备id:"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="@dimen/dp_0"
+                android:id="@+id/tvIp"
+                tools:text="设备ip："
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_width="@dimen/dp_0"
+                android:id="@+id/tvStatus"
+                tools:text="在线："
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tvTime"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_10"
+            tools:text="2019-04-19 12:23:34"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tvLocation"
+            tools:text="经纬度："
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

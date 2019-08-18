@@ -12,11 +12,11 @@ import com.jingsong.ivmd.mvp.BaseView
  */
 
 class VideoContract {
-    interface View : BaseView{
-        fun setVideoListData(data:ArrayList<VideoListModel>)
+    interface View : BaseView {
+        fun setVideoListData(data: VideoListModel)
     }
 
-    interface Presenter : BasePresenter<View>{
+    interface Presenter : BasePresenter<View> {
         fun getVideoList()
     }
 }

@@ -28,7 +28,7 @@ interface ApiInter {
     fun login(@FieldMap map: HashMap<String, String>): Observable<Response<ErrorModel>>
 
     @POST(ApiUtils.getcameralist)
-    fun cameralist(): Observable<Response<List<VideoListModel>>>
+    fun cameralist(): Observable<Response<VideoListModel>>
 
     @POST(ApiUtils.blacklist)
     fun getlist(@Field("peopleName") peopleName: String, @Field("page_no") page_no: Int? = -1, @Field("page_size") page_size: Int? = 10): Observable<Response<String>>

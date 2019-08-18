@@ -14,14 +14,16 @@ import com.jingsong.ivmd.net.ProgressSubscriber
  */
 
 class VideoPresenter : BasePresenterImpl<VideoContract.View>(), VideoContract.Presenter {
-    internal val allData: ArrayList<VideoListModel> by lazy { ArrayList<VideoListModel>() }
     override fun getVideoList() {
         HttpNetUtils.getInstance().getManager()?.cameralist()
             ?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<List<VideoListModel>>(mView) {
-                override fun onSuccess(data: List<VideoListModel>?, code: Int?) {
-                    allData.addAll(data!!)
-                    mView?.setVideoListData(allData)
+            ?.subscribe(object : ProgressSubscriber<VideoListModel>(mView) {
+                override fun onSuccess(data: VideoListModel?, code: Int?) {
+                    if (data?.code == "0000") {
+                        mView?.setVideoListData(data)
+                    } else {
+                        mView?.showMsg(data?.message!!)
+                    }
                 }
             })
     }

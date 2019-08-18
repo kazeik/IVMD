@@ -10,6 +10,7 @@ import com.jingsong.ivmd.R
 import com.jingsong.ivmd.base.BaseAdapter
 import com.jingsong.ivmd.base.BaseViewHolder
 import com.jingsong.ivmd.iter.OnItemLongEventListener
+import com.jingsong.ivmd.model.ObjItemModel
 import com.jingsong.patient.iter.OnItemEventListener
 
 
@@ -21,7 +22,6 @@ import com.jingsong.patient.iter.OnItemEventListener
  */
 @SuppressLint("UseSparseArrays")
 class VideoListAdapter<A>() : BaseAdapter<A>() {
-    private var show: Boolean = false
     internal var itemEventListener: OnItemEventListener? = null
 
 
@@ -31,14 +31,21 @@ class VideoListAdapter<A>() : BaseAdapter<A>() {
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(p0: BaseViewHolder, p1: Int) {
-//        val ivicon = p0.getViewById<ImageView>(R.id.ivicon)
-//        val tvNum = p0.getViewById<TextView>(R.id.tvNum)
-//        val tvName = p0.getViewById<TextView>(R.id.tvName)
-//        val tvInfo = p0.getViewById<TextView>(R.id.tvInfo)
-////        val cbSelect = p0.getViewById<CheckBox>(R.id.cbSelect)
-//        val rlView = p0.getViewById<RelativeLayout>(R.id.rlView)
+        val tvName = p0.getViewById<TextView>(R.id.tvName)
+        val tvId = p0.getViewById<TextView>(R.id.tvId)
+        val tvStatus = p0.getViewById<TextView>(R.id.tvStatus)
+        val tvIp = p0.getViewById<TextView>(R.id.tvIp)
+        val tvTime = p0.getViewById<TextView>(R.id.tvTime)
+        val tvLocation = p0.getViewById<TextView>(R.id.tvLocation)
 
+        val entity = dataList?.get(p1) as ObjItemModel
 
-//        val entity = dataList?.get(p1) as PatientModel
+        tvName.text = "设备名称：${entity.name}"
+        tvId.text = "设备id：${entity.id}"
+        tvIp.text = "设备ip：${if (TextUtils.isEmpty(entity.ip)) "" else entity.ip}"
+        tvStatus.text = "设备状态：${if (entity.status == 0) "在线" else "离线"}"
+        tvTime.text = "告警时间："
+        tvLocation.text =
+            "设备位置：${if (TextUtils.isEmpty(entity.latitude)) "" else entity.latitude} , ${if (TextUtils.isEmpty(entity.longitude)) "" else entity.longitude}"
     }
 }
