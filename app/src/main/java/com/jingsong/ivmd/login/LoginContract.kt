@@ -15,5 +15,7 @@ class LoginContract {
 
     interface Presenter : BasePresenter<View>{
         fun login(phone:String?,pass:String?)
+
+        fun getVideoList()
     }
 }

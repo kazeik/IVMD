@@ -1,4 +1,4 @@
-package com.jingsong.patient.utils
+package com.jingsong.ivmd.utils
 
 import android.annotation.SuppressLint
 import android.text.TextUtils

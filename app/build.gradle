@@ -16,7 +16,8 @@ android {
     buildTypes {
         release {
             buildConfigField("boolean", "LOG_DEBUG", "false")
-            buildConfigField("String", "URL", "\"http://220.173.143.194:9036\"")
+            buildConfigField("String", "URL", "\"http://20h09363r5.imwork.net:23786\"")
+//            buildConfigField("String", "URL", "\"http://220.173.143.194:9036\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             multiDexEnabled = true
@@ -31,7 +32,8 @@ android {
             multiDexEnabled = true
             zipAlignEnabled = true
             buildConfigField("boolean", "LOG_DEBUG", "true")
-            buildConfigField("String", "URL", "\"http://220.173.143.194:9036\"")
+            buildConfigField("String", "URL", "\"http://20h09363r5.imwork.net:23786\"")
+//            buildConfigField("String", "URL", "\"http://220.173.143.194:9036\"")
         }
     }
 }
@@ -73,4 +75,6 @@ dependencies {
 
 
     implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
 }

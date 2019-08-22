@@ -47,7 +47,6 @@ class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainCo
         viewpager.offscreenPageLimit = 4
         viewpager.addOnPageChangeListener(this)
         gr_bottom.setOnCheckedChangeListener(this)
-
     }
 
     override fun onKeyDown(paramInt: Int, paramKeyEvent: KeyEvent): Boolean {

@@ -13,5 +13,7 @@ import com.jingsong.ivmd.mvp.BaseView
 class MainContract {
     interface View : BaseView
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View>{
+
+    }
 }

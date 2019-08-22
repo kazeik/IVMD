@@ -35,7 +35,7 @@ abstract class HttpSimpleSubscriber<T> : Observer<Response<T>> {
 //                        else
 //                            onError(p0.code(), error.errorDescription)
 //                    } catch (ex: Exception) {
-                        onError(p0.code(), "")
+                        onError(p0.code(), "请求出错，请稍后重试")
 //                    }
                 }
             }

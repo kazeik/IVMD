@@ -1,6 +1,7 @@
 package com.jingsong.ivmd.warning
 
 import android.content.Context
+import com.jingsong.ivmd.model.WarningModel
 
 import com.jingsong.ivmd.mvp.BasePresenter
 import com.jingsong.ivmd.mvp.BaseView
@@ -11,7 +12,11 @@ import com.jingsong.ivmd.mvp.BaseView
  */
 
 class WarningContract {
-    interface View : BaseView
+    interface View : BaseView{
+        fun setData(data: WarningModel)
+    }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+        fun search(pageNo: Int? = 0)
+    }
 }
