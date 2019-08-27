@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.empty_view.*
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
+import org.jetbrains.anko.support.v4.toast
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,12 +50,12 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
     }
 
     override fun setHomeData(data: HomeDataModel) {
-        if (!data.rows.isNullOrEmpty())
-            allrows.addAll(data.rows)
         if (allrows.isNullOrEmpty()) {
             srvList.visibility = View.GONE
             rlEmptyView.visibility = View.VISIBLE
+            toast("未查到数据")
         } else {
+            allrows.addAll(data.rows)
             srvList.visibility = View.VISIBLE
             rlEmptyView.visibility = View.GONE
             adapter.setDataEntityList(allrows)
@@ -193,9 +194,11 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         btnStart.setOnClickListener(this)
         btnEnd.setOnClickListener(this)
 
-        tvItem1.text = "设备IP"
+        tvItem1.text = "数据来源"
         tvItem2.text = "抓拍时间"
         tvItem3.text = "现场照片"
+        startDateStr = TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)
+        btnDate.text = startDateStr
 
         srvList.setLoadingListener(this)
         srvList.addItemDecoration(
@@ -209,8 +212,8 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         srvList.adapter = adapter
         adapter.itemEventListener = this
 
-        val mItems = ArrayList<String>()
         ips.clear()
+        val mItems = ArrayList<String>()
         ApiUtils.videoListMode?.obj?.forEach {
             if (it.f == 1) {
                 mItems.add(it.name)
