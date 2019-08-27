@@ -1,5 +1,7 @@
 package com.jingsong.ivmd.model
 
+import java.io.Serializable
+
 data class ObjItemModel(
     val `open`: Boolean,
     val cameraId: Int,
@@ -15,4 +17,4 @@ data class ObjItemModel(
     val pId: Int,
     val rtspurl: String,
     val status: Int
-)
+):Serializable

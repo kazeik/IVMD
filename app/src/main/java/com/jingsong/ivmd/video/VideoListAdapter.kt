@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.TextUtils
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.jingsong.ivmd.R
@@ -37,8 +38,15 @@ class VideoListAdapter<A>() : BaseAdapter<A>() {
         val tvIp = p0.getViewById<TextView>(R.id.tvIp)
         val tvTime = p0.getViewById<TextView>(R.id.tvTime)
         val tvLocation = p0.getViewById<TextView>(R.id.tvLocation)
+        val llItem = p0.getViewById<LinearLayout>(R.id.llItem)
 
         val entity = dataList?.get(p1) as ObjItemModel
+
+        llItem.setOnClickListener {
+            if (itemEventListener != null) {
+                itemEventListener?.onItemEvent(p1)
+            }
+        }
 
         tvName.text = "设备名称：${entity.name}"
         tvId.text = "设备id：${entity.id}"
@@ -46,6 +54,9 @@ class VideoListAdapter<A>() : BaseAdapter<A>() {
         tvStatus.text = "设备状态：${if (entity.status == 0) "在线" else "离线"}"
         tvTime.text = "告警时间："
         tvLocation.text =
-            "设备位置：${if (TextUtils.isEmpty(entity.latitude)) "" else entity.latitude} , ${if (TextUtils.isEmpty(entity.longitude)) "" else entity.longitude}"
+            "设备位置：${if (TextUtils.isEmpty(entity.latitude)) "" else entity.latitude} , ${if (TextUtils.isEmpty(
+                    entity.longitude
+                )
+            ) "" else entity.longitude}"
     }
 }

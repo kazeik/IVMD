@@ -31,7 +31,7 @@
 
     <color name="et_foucus">#5ae8f8</color>
     <color name="et_line">#dadada</color>
-
+    <color name="dkplayer_theme_color">#39C5BB</color>
     <!-- 灰线 -->
     <color name="linegray_color1">#dedede</color>
     <color name="bg">#3c75ff</color>

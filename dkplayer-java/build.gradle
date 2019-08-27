@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply from: '../constants.gradle'
+
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'com.android.support:appcompat-v7:' + project.ext.supportLibraryVersion
+}
+
+ext {
+    releaseArtifact = 'dkplayer-java'
+}

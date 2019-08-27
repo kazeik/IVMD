@@ -49,7 +49,8 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
     }
 
     override fun setHomeData(data: HomeDataModel) {
-        allrows.addAll(data.rows)
+        if (!data.rows.isNullOrEmpty())
+            allrows.addAll(data.rows)
         if (allrows.isNullOrEmpty()) {
             srvList.visibility = View.GONE
             rlEmptyView.visibility = View.VISIBLE

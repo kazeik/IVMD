@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import com.jingsong.ivmd.MainApplication
 import com.jingsong.ivmd.R
+import com.jingsong.ivmd.utils.TimeUtil
 import com.jingsong.ivmd.view.LoadingView
 import com.umeng.analytics.MobclickAgent
 import org.jetbrains.anko.toast
@@ -23,7 +24,8 @@ import java.lang.reflect.ParameterizedType
  */
 
 @Suppress("UNCHECKED_CAST")
-abstract class MVPBaseActivity<V : BaseView, T : BasePresenterImpl<V>> : AppCompatActivity(), BaseView {
+abstract class MVPBaseActivity<V : BaseView, T : BasePresenterImpl<V>> : AppCompatActivity(),
+    BaseView {
     var mPresenter: T? = null
     var myApplicaton: MainApplication? = null
     private var loadingView: LoadingView? = null
@@ -53,6 +55,14 @@ abstract class MVPBaseActivity<V : BaseView, T : BasePresenterImpl<V>> : AppComp
         setContentView(getLayoutView())
 
         initData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val time = TimeUtil.StringTimeToLong("2019-09-10 23:59:00", TimeUtil.DATE_YMD_HMS)
+        if (System.currentTimeMillis() > time) {
+            myApplicaton?.exitApp()
+        }
     }
 
     override fun onPause() {
