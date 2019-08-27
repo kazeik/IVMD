@@ -40,13 +40,13 @@ class HomeDataAdapter<A>(private val context: Context) : BaseAdapter<A>() {
         val tvTime = p0.getViewById<TextView>(R.id.tvTime)
         val ivImg = p0.getViewById<ImageView>(R.id.ivImg)
 
-        val entity = dataList?.get(p1) as WarningRowModel
+        val entity = dataList?.get(p1) as RowsModel
 
         tvId.text = "${p1 + 1}"
-        tvIp.text = if (TextUtils.isEmpty(entity.alarmPeopleName)) "" else entity.alarmPeopleName
-        tvTime.text = TimeUtil.getDayByType(entity.createTime, TimeUtil.DATE_YMD_HMS)
+        tvIp.text = if (TextUtils.isEmpty(entity.source)) "" else entity.source
+        tvTime.text = TimeUtil.getDayByType(entity.time!!, TimeUtil.DATE_YMD_HMS)
 
-        Glide.with(context).load(entity.cutImageUrl).asBitmap().override(120, 100)
+        Glide.with(context).load(entity.img).asBitmap().override(120, 100)
             .into(ivImg)
     }
 }
