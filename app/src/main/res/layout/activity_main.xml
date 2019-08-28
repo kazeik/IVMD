@@ -23,7 +23,14 @@
                 android:textColor="@drawable/main_text"
                 android:drawableTop="@drawable/content_zixuan_selector"
                 android:text="@string/tab_main" />
-
+        <RadioButton
+                android:id="@+id/rb_mb"
+                style="@style/mainRadio"
+                android:checked="false"
+                android:textColor="@drawable/main_text"
+                android:drawableTop="@drawable/content_hanqing_selector"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_mb" />
         <RadioButton
                 android:id="@+id/rb_hanqing"
                 style="@style/mainRadio"

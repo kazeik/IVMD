@@ -8,12 +8,14 @@ import android.widget.RadioGroup
 import com.jingsong.ivmd.R
 import com.jingsong.ivmd.data.DataFragment
 import com.jingsong.ivmd.mvp.MVPBaseActivity
+import com.jingsong.ivmd.template.TemplateFragment
 import com.jingsong.ivmd.video.VideoFragment
 import com.jingsong.ivmd.warning.WarningFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
-class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainContract.View, ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
+class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainContract.View,
+    ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
     override fun onPageScrollStateChanged(p0: Int) {
     }
 
@@ -23,16 +25,18 @@ class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainCo
     override fun onPageSelected(p0: Int) {
         when (p0) {
             0 -> rb_zixuan.isChecked = true
-            1 -> rb_hanqing.isChecked = true
-            2 -> rb_jiaoyi.isChecked = true
+            1 -> rb_mb.isChecked = true
+            2 -> rb_hanqing.isChecked = true
+            3 -> rb_jiaoyi.isChecked = true
         }
     }
 
     override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
         when (p1) {
             R.id.rb_zixuan -> viewpager.currentItem = 0
-            R.id.rb_hanqing -> viewpager.currentItem = 1
-            R.id.rb_jiaoyi -> viewpager.currentItem = 2
+            R.id.rb_mb -> viewpager.currentItem = 1
+            R.id.rb_hanqing -> viewpager.currentItem = 2
+            R.id.rb_jiaoyi -> viewpager.currentItem = 3
         }
     }
 
@@ -42,7 +46,15 @@ class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainCo
     }
 
     override fun initData() {
-        val adapter = FtPagerAdapter(supportFragmentManager, arrayListOf<Fragment>(DataFragment(), WarningFragment(),VideoFragment()))
+        val adapter = FtPagerAdapter(
+            supportFragmentManager,
+            arrayListOf<Fragment>(
+                DataFragment(),
+                TemplateFragment(),
+                WarningFragment(),
+                VideoFragment()
+            )
+        )
         viewpager.adapter = adapter
         viewpager.offscreenPageLimit = 4
         viewpager.addOnPageChangeListener(this)

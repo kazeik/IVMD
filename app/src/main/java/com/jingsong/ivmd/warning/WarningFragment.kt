@@ -1,28 +1,20 @@
 package com.jingsong.ivmd.warning
 
 
-import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import com.bigkoo.pickerview.builder.TimePickerBuilder
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
 import com.jingsong.ivmd.data.HomeDataAdapter
-import com.jingsong.ivmd.model.RowsModel
 import com.jingsong.ivmd.model.WarningModel
 import com.jingsong.ivmd.model.WarningRowModel
 import com.jingsong.ivmd.mvp.MVPBaseFragment
-import com.jingsong.ivmd.utils.ApiUtils
-import com.jingsong.ivmd.utils.TimeUtil
 import com.jingsong.ivmd.view.DefaultItemDecoration
 import com.jingsong.patient.iter.OnItemEventListener
 import kotlinx.android.synthetic.main.empty_view.*
-import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
+import org.jetbrains.anko.support.v4.toast
 import java.util.*
 
 /**
@@ -38,6 +30,7 @@ class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(
         if (allrows.isNullOrEmpty()) {
             srvList.visibility = View.GONE
             rlEmptyView.visibility = View.VISIBLE
+            toast("暂无数据")
         } else {
             srvList.visibility = View.VISIBLE
             rlEmptyView.visibility = View.GONE
@@ -77,8 +70,8 @@ class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(
 
     override fun bindData() {
 
-        tvItem1.text = "告警姓名"
-        tvItem2.text = "告警时间"
+        tvItem1.text = "预警姓名"
+        tvItem2.text = "预警时间"
         tvItem3.text = "历史视频"
 
         srvList.setLoadingListener(this)
