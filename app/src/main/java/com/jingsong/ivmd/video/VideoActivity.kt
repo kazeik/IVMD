@@ -2,6 +2,7 @@ package com.jingsong.ivmd.video
 
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
@@ -37,6 +38,13 @@ class VideoActivity : MVPBaseActivity<VideoContract.View, VideoPresenter>(), Vid
         mPresenter?.getVideoList()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onItemEvent(pos: Int) {
         val model = listModel?.obj?.get(pos)
         val url =
@@ -65,6 +73,8 @@ class VideoActivity : MVPBaseActivity<VideoContract.View, VideoPresenter>(), Vid
 
     private val adapter: VideoListAdapter<ObjItemModel> by lazy { VideoListAdapter<ObjItemModel>() }
     override fun initData() {
+        supportActionBar?.title = "实时视频"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         srvList.setLoadingListener(this)
         srvList.setLoadingMoreEnabled(false)
         srvList.addItemDecoration(

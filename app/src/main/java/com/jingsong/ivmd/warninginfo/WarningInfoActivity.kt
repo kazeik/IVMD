@@ -61,6 +61,8 @@ class WarningInfoActivity : MVPBaseActivity<WarningInfoContract.View, WarningInf
 
     private var warninItem: WarningRowModel? = null
     override fun initData() {
+        supportActionBar?.title = "历史视频列表"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         warninItem = intent.getSerializableExtra("item") as? WarningRowModel
         srvList.setLoadingMoreEnabled(false)
         srvList.setPullRefreshEnabled(false)

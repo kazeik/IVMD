@@ -27,8 +27,9 @@ import com.jingsong.patient.iter.OnItemEventListener
  *         2019 04 08 14:54
  * 类说明:
  */
+@Deprecated("弃用")
 @SuppressLint("UseSparseArrays")
-class WarningAdapter<A>(private val context: Context) : BaseAdapter<A>() {
+class ImgItemAdapter<A>(private val context: Context) : BaseAdapter<A>() {
     internal var itemEventListener: OnItemEventListener? = null
 
 
@@ -42,33 +43,11 @@ class WarningAdapter<A>(private val context: Context) : BaseAdapter<A>() {
         val tvIp = p0.getViewById<TextView>(R.id.tvIp)
         val tvTime = p0.getViewById<TextView>(R.id.tvTime)
         val tvName = p0.getViewById<TextView>(R.id.tvName)
-        val tvTitleName1 = p0.getViewById<TextView>(R.id.tvTitleName1)
-        val tvTitleName2 = p0.getViewById<TextView>(R.id.tvTitleName2)
-        val tvTitleName3 = p0.getViewById<TextView>(R.id.tvTitleName3)
-        val tvTitleName4 = p0.getViewById<TextView>(R.id.tvTitleName4)
-        val tvSimilarity1 = p0.getViewById<TextView>(R.id.tvSimilarity1)
-        val tvSimilarity2 = p0.getViewById<TextView>(R.id.tvSimilarity2)
-        val tvSimilarity3 = p0.getViewById<TextView>(R.id.tvSimilarity3)
-        val tvSimilarity4 = p0.getViewById<TextView>(R.id.tvSimilarity4)
-        val ivImg1 = p0.getViewById<ImageView>(R.id.ivImg1)
-        val ivImg2 = p0.getViewById<ImageView>(R.id.ivImg2)
-        val ivImg3 = p0.getViewById<ImageView>(R.id.ivImg3)
-        val ivImg4 = p0.getViewById<ImageView>(R.id.ivImg4)
+        val ivImg = p0.getViewById<ImageView>(R.id.ivImg)
         val llItem = p0.getViewById<LinearLayout>(R.id.llItem)
 
 
         val entity = dataList?.get(p1) as WarningRowModel
-
-        tvTitleName1.text = "告警图片"
-        tvTitleName2.text = "目标人员1"
-        tvTitleName3.text = "目标人员2"
-        tvTitleName4.text = "目标人员3"
-
-
-        tvSimilarity1.text = "告警相似度${entity.alarmScore}%"
-        tvSimilarity2.text = "告警相似度${entity.alarmTmplScore1}%"
-        tvSimilarity3.text = "告警相似度${entity.alarmTmplScore2}%"
-        tvSimilarity4.text = "告警相似度${entity.alarmTmplScore3}%"
 
         tvId.text = "序号:${p1 + 1}"
         tvName.text =
@@ -82,14 +61,8 @@ class WarningAdapter<A>(private val context: Context) : BaseAdapter<A>() {
         }
 
 //        rcvList.layoutManager = LinearLayoutManager(context)
-//        rcvList.adapter = ImgItemAdapter<String>(context)
-        Glide.with(context).load(entity.cutImageUrl).asBitmap().override(140, 120)
-            .into(ivImg1)
-        Glide.with(context).load(entity.img1).asBitmap().override(140, 120)
-            .into(ivImg2)
-        Glide.with(context).load(entity.img2).asBitmap().override(140, 120)
-            .into(ivImg3)
-        Glide.with(context).load(entity.img3).asBitmap().override(140, 120)
-            .into(ivImg4)
+
+//        Glide.with(context).load(entity.cutImageUrl).asBitmap().override(120, 100)
+//            .into(ivImg)
     }
 }

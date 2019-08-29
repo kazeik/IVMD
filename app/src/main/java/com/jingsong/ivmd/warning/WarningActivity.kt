@@ -2,6 +2,7 @@ package com.jingsong.ivmd.warning
 
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
@@ -47,9 +48,14 @@ class WarningActivity : MVPBaseActivity<WarningContract.View, WarningPresenter>(
         srvList.refreshComplete()
         srvList.loadMoreComplete()
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onItemEvent(pos: Int) {
-        startActivity<WarningInfoActivity>("item" to allrows)
+        startActivity<WarningInfoActivity>("item" to allrows[pos])
     }
 
     override fun onLoadMore() {
@@ -59,6 +65,7 @@ class WarningActivity : MVPBaseActivity<WarningContract.View, WarningPresenter>(
 
     override fun onRefresh() {
         pageNo = 0
+        allrows.clear()
         mPresenter?.search(pageNo)
     }
 
@@ -66,8 +73,8 @@ class WarningActivity : MVPBaseActivity<WarningContract.View, WarningPresenter>(
         startActivity<WarningInfoActivity>()
     }
 
-    private val adapter: HomeDataAdapter<WarningRowModel> by lazy {
-        HomeDataAdapter<WarningRowModel>(
+    private val adapter: WarningAdapter<WarningRowModel> by lazy {
+        WarningAdapter<WarningRowModel>(
             this
         )
     }
@@ -76,10 +83,11 @@ class WarningActivity : MVPBaseActivity<WarningContract.View, WarningPresenter>(
     private var pageNo: Int? = 0
 
     override fun initData() {
-
-        tvItem1.text = "预警姓名"
-        tvItem2.text = "预警时间"
-        tvItem3.text = "历史视频"
+//        tvItem1.text = "预警姓名"
+//        tvItem2.text = "预警时间"
+//        tvItem3.text = "现场照片"
+        supportActionBar?.title = "人脸预警"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         srvList.setLoadingListener(this)
         srvList.addItemDecoration(

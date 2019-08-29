@@ -16,9 +16,14 @@ import com.jingsong.ivmd.net.ProgressSubscriber
 
 class WarningInfoPresenter : BasePresenterImpl<WarningInfoContract.View>(),
     WarningInfoContract.Presenter {
-    internal val allItem :ArrayList<VideoInfoModel> by lazy { ArrayList<VideoInfoModel>() }
+    internal val allItem: ArrayList<VideoInfoModel> by lazy { ArrayList<VideoInfoModel>() }
     override fun search(cameraIp: String, id: Int, timestamp: Long) {
-        HttpNetUtils.getInstance().getManager()?.getVideoInfo(cameraIp, id, timestamp)
+        val map = HashMap<String, Any>()
+        map["cameraIp"] = cameraIp
+        map["id"] = id
+        map["timestamp"] = timestamp
+        val body = HttpNetUtils.getInstance().getParamsBody(map)
+        HttpNetUtils.getInstance().getManager()?.getVideoInfo(body)
             ?.compose(NetworkScheduler.compose())
             ?.subscribe(object : ProgressSubscriber<VideoItemModel>(mView) {
                 override fun onSuccess(data: VideoItemModel?, code: Int?) {

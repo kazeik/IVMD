@@ -2,6 +2,7 @@ package com.jingsong.ivmd.template
 
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -40,7 +41,12 @@ class TemplateActivity : MVPBaseActivity<TemplateContract.View, TemplatePresente
             R.id.btnSearch -> mPresenter?.getList(true, 0, name)
         }
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onItemEvent(pos: Int) {
     }
 
@@ -61,7 +67,7 @@ class TemplateActivity : MVPBaseActivity<TemplateContract.View, TemplatePresente
                 mItems.add(it.peopleName)
             }
             val adapter: ArrayAdapter<String> =
-                ArrayAdapter<String>(this!!, android.R.layout.simple_spinner_item, mItems)
+                ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mItems)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spIp.adapter = adapter
             spIp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -82,7 +88,7 @@ class TemplateActivity : MVPBaseActivity<TemplateContract.View, TemplatePresente
 
     private val adapter: TemplateAdapter<TemplateRowModel> by lazy {
         TemplateAdapter<TemplateRowModel>(
-            this!!
+            this
         )
     }
     var page: Int? = 0
@@ -99,6 +105,8 @@ class TemplateActivity : MVPBaseActivity<TemplateContract.View, TemplatePresente
 
 
     override fun initData() {
+        supportActionBar?.title = "模板查询"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         btnSearch.setOnClickListener(this)
         tvItem1.text = "姓名"
         tvItem2.text = "添加时间"

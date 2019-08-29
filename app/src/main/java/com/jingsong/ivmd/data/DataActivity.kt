@@ -3,6 +3,7 @@ package com.jingsong.ivmd.data
 
 import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -118,6 +119,13 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun showTimeSelect(isStart: Boolean? = false) {
         val selectedDate = Calendar.getInstance()
         val startDate = Calendar.getInstance()
@@ -191,6 +199,8 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
 
 
     override fun initData() {
+        supportActionBar?.title = "抓拍查询"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         btnSearch.setOnClickListener(this)
         btnDate.setOnClickListener(this)
         btnStart.setOnClickListener(this)
@@ -201,7 +211,7 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
         tvItem3.text = "现场照片"
         val tempDate = TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)
         btnDate.text = tempDate
-        startDateStr = tempDate.replace("-","")
+        startDateStr = tempDate.replace("-", "")
 
         srvList.setLoadingListener(this)
         srvList.addItemDecoration(

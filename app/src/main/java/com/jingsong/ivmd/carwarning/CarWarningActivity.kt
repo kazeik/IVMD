@@ -2,6 +2,7 @@ package com.jingsong.ivmd.carwarning
 
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
@@ -28,7 +29,7 @@ class CarWarningActivity : MVPBaseActivity<CarWarningContract.View, CarWarningPr
     CarWarningContract.View, XRecyclerView.LoadingListener, OnItemEventListener,
     View.OnClickListener {
     override fun getLayoutView(): Int {
-        return R.layout.fragment_warning
+        return R.layout.activity_car_warning
     }
 
     override fun setData(data: List<CarRow>) {
@@ -60,7 +61,12 @@ class CarWarningActivity : MVPBaseActivity<CarWarningContract.View, CarWarningPr
 
     override fun onClick(v: View?) {
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     private val adapter: CarWarningAdapter<CarRow> by lazy {
         CarWarningAdapter<CarRow>(
             this
@@ -70,7 +76,8 @@ class CarWarningActivity : MVPBaseActivity<CarWarningContract.View, CarWarningPr
     private var pageNo: Int? = 0
 
     override fun initData() {
-
+        supportActionBar?.title = "车辆预警"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         tvItem1.text = "预警车牌"
         tvItem2.text = "预警时间"
         tvItem3.text = "历史视频"
