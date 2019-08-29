@@ -14,7 +14,6 @@ import com.jingsong.ivmd.model.HomeDataModel
 import com.jingsong.ivmd.model.RowsModel
 import com.jingsong.ivmd.model.VideoListModel
 import com.jingsong.ivmd.mvp.MVPBaseActivity
-import com.jingsong.ivmd.mvp.MVPBaseFragment
 import com.jingsong.ivmd.utils.ApiUtils
 import com.jingsong.ivmd.utils.TimeUtil
 import com.jingsong.ivmd.view.DefaultItemDecoration
@@ -23,7 +22,6 @@ import kotlinx.android.synthetic.main.empty_view.*
 import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.util.*
 import kotlin.collections.ArrayList
@@ -84,7 +82,7 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
         }
         ipAdd = ips[0]
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(this!!, android.R.layout.simple_spinner_item, mItems)
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spIp.adapter = adapter
         spIp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -201,8 +199,9 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
         tvItem1.text = "数据来源"
         tvItem2.text = "抓拍时间"
         tvItem3.text = "现场照片"
-        startDateStr = TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)
-        btnDate.text = startDateStr
+        val tempDate = TimeUtil.getDayByType(System.currentTimeMillis(), TimeUtil.DATE_YMS)
+        btnDate.text = tempDate
+        startDateStr = tempDate.replace("-","")
 
         srvList.setLoadingListener(this)
         srvList.addItemDecoration(

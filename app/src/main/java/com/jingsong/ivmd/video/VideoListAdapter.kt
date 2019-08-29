@@ -51,7 +51,11 @@ class VideoListAdapter<A>() : BaseAdapter<A>() {
         tvName.text = "设备名称：${entity.name}"
         tvId.text = "设备id：${entity.id}"
         tvIp.text = "设备ip：${if (TextUtils.isEmpty(entity.ip)) "" else entity.ip}"
-        tvStatus.text = "设备状态：${if (entity.status == 0) "在线" else "离线"}"
+        tvStatus.text = "设备状态：${when (entity.status) {
+            0 -> "在线"
+            1 -> "离线"
+            else -> ""
+        }}"
         tvTime.text = "告警时间："
         tvLocation.text =
             "设备位置：${if (TextUtils.isEmpty(entity.latitude)) "" else entity.latitude} , ${if (TextUtils.isEmpty(
