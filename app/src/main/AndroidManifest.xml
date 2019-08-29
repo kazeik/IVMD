@@ -54,6 +54,12 @@
                 android:name=".palyer.PlayerActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:screenOrientation="portrait" />
+        <activity android:name=".data.DataActivity" />
+        <activity android:name=".warning.WarningActivity" />
+        <activity android:name=".video.VideoActivity" />
+        <activity android:name=".template.TemplateActivity" />
+        <activity android:name=".carwarning.CarWarningActivity" />
+        <activity android:name=".warninginfo.WarningInfoActivity" />
     </application>
 
 </manifest>

@@ -41,10 +41,12 @@ interface ApiInter {
     fun getAlaramList(@Body body: RequestBody): Observable<Response<WarningModel>>
 
     @POST(ApiUtils.caralarmListView)
-    fun getCarNoList(
-        @Field("carNo") peopleName: String, @Field("page_no") page_no: Int? = -1, @Field(
-            "page_size"
-        ) page_size: Int? = 10
-    ): Observable<Response<String>>
+    fun getCarNoList(@Body body: RequestBody): Observable<Response<CarWarningModel>>
+
+    @POST(ApiUtils.caralarm)
+    fun getVideoInfo(
+        @Field("cameraIp") cameraIp: String, @Field("id") warningId: Int,
+        @Field("timestamp") timestamp: Long
+    ): Observable<Response<VideoItemModel>>
 
 }

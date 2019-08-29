@@ -1,42 +1,29 @@
 package com.jingsong.ivmd.main
 
 
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
+import android.support.v7.widget.GridLayoutManager
 import android.view.KeyEvent
-import android.widget.RadioGroup
 import com.jingsong.ivmd.R
-import com.jingsong.ivmd.data.DataFragment
+import com.jingsong.ivmd.carwarning.CarWarningActivity
+import com.jingsong.ivmd.data.DataActivity
 import com.jingsong.ivmd.mvp.MVPBaseActivity
-import com.jingsong.ivmd.template.TemplateFragment
-import com.jingsong.ivmd.video.VideoFragment
-import com.jingsong.ivmd.warning.WarningFragment
+import com.jingsong.ivmd.template.TemplateActivity
+import com.jingsong.ivmd.video.VideoActivity
+import com.jingsong.ivmd.warning.WarningActivity
+import com.jingsong.patient.iter.OnItemEventListener
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainContract.View,
-    ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
-    override fun onPageScrollStateChanged(p0: Int) {
-    }
-
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-    }
-
-    override fun onPageSelected(p0: Int) {
-        when (p0) {
-            0 -> rb_zixuan.isChecked = true
-            1 -> rb_mb.isChecked = true
-            2 -> rb_hanqing.isChecked = true
-            3 -> rb_jiaoyi.isChecked = true
-        }
-    }
-
-    override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
-        when (p1) {
-            R.id.rb_zixuan -> viewpager.currentItem = 0
-            R.id.rb_mb -> viewpager.currentItem = 1
-            R.id.rb_hanqing -> viewpager.currentItem = 2
-            R.id.rb_jiaoyi -> viewpager.currentItem = 3
+    OnItemEventListener {
+    override fun onItemEvent(pos: Int) {
+        when (pos) {
+            0 -> startActivity<DataActivity>()
+            1 -> startActivity<TemplateActivity>()
+            2 -> startActivity<WarningActivity>()
+            3 -> startActivity<CarWarningActivity>()
+            4 -> startActivity<VideoActivity>()
         }
     }
 
@@ -46,19 +33,33 @@ class MainActivity : MVPBaseActivity<MainContract.View, MainPresenter>(), MainCo
     }
 
     override fun initData() {
-        val adapter = FtPagerAdapter(
-            supportFragmentManager,
-            arrayListOf<Fragment>(
-                DataFragment(),
-                TemplateFragment(),
-                WarningFragment(),
-                VideoFragment()
-            )
+//        val adapter = FtPagerAdapter(
+//            supportFragmentManager,
+//            arrayListOf<Fragment>(
+//                DataFragment(),
+//                TemplateFragment(),
+//                WarningFragment(),
+//                VideoFragment()
+//            )
+//        )
+//        viewpager.adapter = adapter
+//        viewpager.offscreenPageLimit = 4
+//        viewpager.addOnPageChangeListener(this)
+//        gr_bottom.setOnCheckedChangeListener(this)
+
+        val itemarr = resources.getStringArray(R.array.mainstr)
+        val resArr: IntArray = intArrayOf(
+            R.drawable.ic_my_device,
+            R.drawable.ic_my_info,
+            R.drawable.ic_my_refresh,
+            R.drawable.ic_my_device,
+            R.drawable.ic_my_info
         )
-        viewpager.adapter = adapter
-        viewpager.offscreenPageLimit = 4
-        viewpager.addOnPageChangeListener(this)
-        gr_bottom.setOnCheckedChangeListener(this)
+        val adapter: MainAdapter<String> by lazy { MainAdapter<String>(resArr) }
+        rcvList.layoutManager = GridLayoutManager(this, 4)
+        rcvList.adapter = adapter
+        adapter.setDataEntityList(itemarr.toList())
+        adapter.listener = this
     }
 
     override fun onKeyDown(paramInt: Int, paramKeyEvent: KeyEvent): Boolean {

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
 import com.jingsong.ivmd.model.TemplateRowModel
+import com.jingsong.ivmd.mvp.MVPBaseActivity
 import com.jingsong.ivmd.mvp.MVPBaseFragment
 import com.jingsong.ivmd.view.DefaultItemDecoration
 import com.jingsong.patient.iter.OnItemEventListener
@@ -19,15 +20,21 @@ import kotlinx.android.synthetic.main.fragment_template.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 
 /**
  * MVPPlugin
  * 邮箱 784787081@qq.com
  */
 
-class TemplateFragment : MVPBaseFragment<TemplateContract.View, TemplatePresenter>(),
+class TemplateActivity : MVPBaseActivity<TemplateContract.View, TemplatePresenter>(),
     TemplateContract.View, XRecyclerView.LoadingListener, OnItemEventListener,
     View.OnClickListener {
+    override fun getLayoutView(): Int {
+        return R.layout.fragment_template
+    }
+
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnSearch -> mPresenter?.getList(true, 0, name)
@@ -54,7 +61,7 @@ class TemplateFragment : MVPBaseFragment<TemplateContract.View, TemplatePresente
                 mItems.add(it.peopleName)
             }
             val adapter: ArrayAdapter<String> =
-                ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, mItems)
+                ArrayAdapter<String>(this!!, android.R.layout.simple_spinner_item, mItems)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spIp.adapter = adapter
             spIp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -75,7 +82,7 @@ class TemplateFragment : MVPBaseFragment<TemplateContract.View, TemplatePresente
 
     private val adapter: TemplateAdapter<TemplateRowModel> by lazy {
         TemplateAdapter<TemplateRowModel>(
-            activity!!
+            this!!
         )
     }
     var page: Int? = 0
@@ -90,11 +97,8 @@ class TemplateFragment : MVPBaseFragment<TemplateContract.View, TemplatePresente
         mPresenter?.getList(true)
     }
 
-    override fun initView(): Int {
-        return R.layout.fragment_template
-    }
 
-    override fun bindData() {
+    override fun initData() {
         btnSearch.setOnClickListener(this)
         tvItem1.text = "姓名"
         tvItem2.text = "添加时间"
@@ -108,13 +112,12 @@ class TemplateFragment : MVPBaseFragment<TemplateContract.View, TemplatePresente
                 1
             )
         )
-        srvList.layoutManager = LinearLayoutManager(activity)
+        srvList.layoutManager = LinearLayoutManager(this)
         srvList.adapter = adapter
         adapter.itemEventListener = this
-    }
 
-    override fun lazyLoad() {
         if (mPresenter?.allData.isNullOrEmpty())
             mPresenter?.getList()
     }
+
 }

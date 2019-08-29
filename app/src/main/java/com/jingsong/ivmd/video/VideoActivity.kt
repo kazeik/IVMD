@@ -3,31 +3,31 @@ package com.jingsong.ivmd.video
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.dueeeke.videoplayer.ijk.IjkPlayerFactory
-import com.dueeeke.videoplayer.player.VideoViewManager
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.jingsong.ivmd.R
 import com.jingsong.ivmd.model.ObjItemModel
 import com.jingsong.ivmd.model.VideoListModel
-import com.jingsong.ivmd.mvp.MVPBaseFragment
+import com.jingsong.ivmd.mvp.MVPBaseActivity
 import com.jingsong.ivmd.palyer.PlayerActivity
-import com.jingsong.ivmd.utils.ApiUtils
 import com.jingsong.ivmd.utils.ApiUtils.videoListMode
-import com.jingsong.ivmd.videoplay.VideoPlayActivity
 import com.jingsong.ivmd.view.DefaultItemDecoration
 import com.jingsong.patient.iter.OnItemEventListener
 import kotlinx.android.synthetic.main.empty_view.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
-import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.startActivity
 
 /**
  * MVPPlugin
  * 邮箱 784787081@qq.com
  */
 
-class VideoFragment : MVPBaseFragment<VideoContract.View, VideoPresenter>(), VideoContract.View,
+class VideoActivity : MVPBaseActivity<VideoContract.View, VideoPresenter>(), VideoContract.View,
     OnItemEventListener,
     XRecyclerView.LoadingListener {
+    override fun getLayoutView(): Int {
+        return R.layout.layout_recycler_emtpy
+    }
+
 
     private var listModel: VideoListModel? = null
     override fun onLoadMore() {
@@ -44,6 +44,7 @@ class VideoFragment : MVPBaseFragment<VideoContract.View, VideoPresenter>(), Vid
                 model.ip.lastIndexOf(".") + 1,
                 model.ip.length
             )}"
+
         startActivity<PlayerActivity>("url" to url, "name" to model?.name)
     }
 
@@ -61,12 +62,9 @@ class VideoFragment : MVPBaseFragment<VideoContract.View, VideoPresenter>(), Vid
         }
     }
 
-    override fun initView(): Int {
-        return R.layout.layout_recycler_emtpy
-    }
 
     private val adapter: VideoListAdapter<ObjItemModel> by lazy { VideoListAdapter<ObjItemModel>() }
-    override fun bindData() {
+    override fun initData() {
         srvList.setLoadingListener(this)
         srvList.setLoadingMoreEnabled(false)
         srvList.addItemDecoration(
@@ -76,7 +74,7 @@ class VideoFragment : MVPBaseFragment<VideoContract.View, VideoPresenter>(), Vid
                 1
             )
         )
-        srvList.layoutManager = LinearLayoutManager(activity)
+        srvList.layoutManager = LinearLayoutManager(this)
         srvList.adapter = adapter
         adapter.itemEventListener = this
 
@@ -87,15 +85,12 @@ class VideoFragment : MVPBaseFragment<VideoContract.View, VideoPresenter>(), Vid
 //        try {
 //            val mPlayerFactoryField = config.javaClass.getDeclaredField("mPlayerFactory")
 //            mPlayerFactoryField.isAccessible = true
-//            mPlayerFactoryField.set(config, IjkPlayerFactory.create(activity))
+//            mPlayerFactoryField.set(config, IjkPlayerFactory.create(this))
 //        } catch (e: Exception) {
 //            e.printStackTrace()
 //        }
-
-    }
-
-    override fun lazyLoad() {
         if (videoListMode == null)
             mPresenter?.getVideoList()
     }
+
 }

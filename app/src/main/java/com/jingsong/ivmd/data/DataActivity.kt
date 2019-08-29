@@ -13,6 +13,7 @@ import com.jingsong.ivmd.R
 import com.jingsong.ivmd.model.HomeDataModel
 import com.jingsong.ivmd.model.RowsModel
 import com.jingsong.ivmd.model.VideoListModel
+import com.jingsong.ivmd.mvp.MVPBaseActivity
 import com.jingsong.ivmd.mvp.MVPBaseFragment
 import com.jingsong.ivmd.utils.ApiUtils
 import com.jingsong.ivmd.utils.TimeUtil
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_data.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,9 +34,14 @@ import kotlin.collections.ArrayList
  * 邮箱 784787081@qq.com
  */
 
-class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataContract.View,
+class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataContract.View,
     XRecyclerView.LoadingListener, OnItemEventListener,
     View.OnClickListener {
+    override fun getLayoutView(): Int {
+        return R.layout.fragment_data
+    }
+
+
     override fun onItemEvent(pos: Int) {
     }
 
@@ -77,7 +84,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         }
         ipAdd = ips[0]
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, mItems)
+            ArrayAdapter<String>(this!!, android.R.layout.simple_spinner_item, mItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spIp.adapter = adapter
         spIp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -102,7 +109,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
     private var startDateStr: String? = ""
     private var ipAdd: String? = ""
 
-    private val adapter: HomeDataAdapter<RowsModel> by lazy { HomeDataAdapter<RowsModel>(activity!!) }
+    private val adapter: HomeDataAdapter<RowsModel> by lazy { HomeDataAdapter<RowsModel>(this!!) }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -117,7 +124,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         val selectedDate = Calendar.getInstance()
         val startDate = Calendar.getInstance()
         startDate.set(1990, 0, 1)
-        TimePickerBuilder(activity, OnTimeSelectListener { date, _ ->
+        TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             val selectTime = TimeUtil.dateToStr(date, TimeUtil.DATE_HM)
             if (isStart!!) {
                 btnStart.text = selectTime
@@ -155,7 +162,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         val selectedDate = Calendar.getInstance()
         val startDate = Calendar.getInstance()
         startDate.set(1990, 0, 1)
-        TimePickerBuilder(activity, OnTimeSelectListener { date, _ ->
+        TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             val selectTime = TimeUtil.dateToStr(date, TimeUtil.DATE_YMS)
             btnDate.text = selectTime
             startDateStr = selectTime?.replace("-", "")
@@ -184,11 +191,8 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
             .build().show()
     }
 
-    override fun initView(): Int {
-        return R.layout.fragment_data
-    }
 
-    override fun bindData() {
+    override fun initData() {
         btnSearch.setOnClickListener(this)
         btnDate.setOnClickListener(this)
         btnStart.setOnClickListener(this)
@@ -208,7 +212,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
                 1
             )
         )
-        srvList.layoutManager = LinearLayoutManager(activity)
+        srvList.layoutManager = LinearLayoutManager(this)
         srvList.adapter = adapter
         adapter.itemEventListener = this
 
@@ -222,7 +226,7 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         }
         ipAdd = ips[0]
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, mItems)
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spIp.adapter = adapter
         spIp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -241,6 +245,4 @@ class DataFragment : MVPBaseFragment<DataContract.View, DataPresenter>(), DataCo
         }
     }
 
-    override fun lazyLoad() {
-    }
 }

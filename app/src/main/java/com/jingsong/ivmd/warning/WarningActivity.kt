@@ -8,13 +8,17 @@ import com.jingsong.ivmd.R
 import com.jingsong.ivmd.data.HomeDataAdapter
 import com.jingsong.ivmd.model.WarningModel
 import com.jingsong.ivmd.model.WarningRowModel
+import com.jingsong.ivmd.mvp.MVPBaseActivity
 import com.jingsong.ivmd.mvp.MVPBaseFragment
 import com.jingsong.ivmd.view.DefaultItemDecoration
+import com.jingsong.ivmd.warninginfo.WarningInfoActivity
 import com.jingsong.patient.iter.OnItemEventListener
 import kotlinx.android.synthetic.main.empty_view.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.android.synthetic.main.layout_recycler_emtpy.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import java.util.*
 
 /**
@@ -22,9 +26,13 @@ import java.util.*
  * 邮箱 784787081@qq.com
  */
 
-class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(),
+class WarningActivity : MVPBaseActivity<WarningContract.View, WarningPresenter>(),
     OnItemEventListener,
     XRecyclerView.LoadingListener, WarningContract.View, View.OnClickListener {
+    override fun getLayoutView(): Int {
+        return R.layout.fragment_warning
+    }
+
     override fun setData(data: WarningModel) {
         allrows.addAll(data.rows)
         if (allrows.isNullOrEmpty()) {
@@ -41,6 +49,7 @@ class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(
     }
 
     override fun onItemEvent(pos: Int) {
+        startActivity<WarningInfoActivity>("item" to allrows)
     }
 
     override fun onLoadMore() {
@@ -54,21 +63,19 @@ class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(
     }
 
     override fun onClick(v: View?) {
+        startActivity<WarningInfoActivity>()
     }
 
     private val adapter: HomeDataAdapter<WarningRowModel> by lazy {
         HomeDataAdapter<WarningRowModel>(
-            activity!!
+            this
         )
     }
     private val allrows: ArrayList<WarningRowModel> by lazy { ArrayList<WarningRowModel>() }
 
     private var pageNo: Int? = 0
-    override fun initView(): Int {
-        return R.layout.fragment_warning
-    }
 
-    override fun bindData() {
+    override fun initData() {
 
         tvItem1.text = "预警姓名"
         tvItem2.text = "预警时间"
@@ -82,14 +89,10 @@ class WarningFragment : MVPBaseFragment<WarningContract.View, WarningPresenter>(
                 1
             )
         )
-        srvList.layoutManager = LinearLayoutManager(activity)
+        srvList.layoutManager = LinearLayoutManager(this)
         srvList.adapter = adapter
         adapter.itemEventListener = this
 
-
-    }
-
-    override fun lazyLoad() {
         if (allrows.isNullOrEmpty())
             mPresenter?.search(pageNo)
     }

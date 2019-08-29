@@ -12,14 +12,8 @@ import android.view.View;
 import com.dueeeke.videocontroller.StandardVideoController;
 import com.dueeeke.videoplayer.ijk.IjkPlayerFactory;
 import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
-import com.dueeeke.videoplayer.player.AndroidMediaPlayerFactory;
-import com.dueeeke.videoplayer.player.PlayerFactory;
 import com.dueeeke.videoplayer.player.VideoView;
-import com.dueeeke.videoplayer.player.VideoViewConfig;
-import com.dueeeke.videoplayer.player.VideoViewManager;
 import com.jingsong.ivmd.R;
-
-import java.lang.reflect.Field;
 
 
 /**
