@@ -34,6 +34,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
+            String fileUrl = intent.getStringExtra("url");
             String name = intent.getStringExtra("name");
             if (actionBar != null) {
                 actionBar.setTitle(name);
@@ -41,12 +42,13 @@ public class PlayerActivity extends AppCompatActivity {
             }
 
             StandardVideoController controller = new StandardVideoController(this);
-            controller.setLive();
+            if (!fileUrl.endsWith(".mp4"))
+                controller.setLive();
             String title = intent.getStringExtra(IntentKeys.TITLE);
             controller.setTitle(title);
             mVideoView.setVideoController(controller);
 
-            mVideoView.setUrl(intent.getStringExtra("url"));
+            mVideoView.setUrl(fileUrl);
 
             //保存播放进度
             mVideoView.setProgressManager(new ProgressManagerImpl());

@@ -3,43 +3,41 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/llItem"
+        android:orientation="vertical">
 
-    <include layout="@layout/view_line_vertical" />
 
     <TextView
             android:id="@+id/tvId"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal" />
+            android:textSize="@dimen/sp_15" />
 
-    <include layout="@layout/view_line_vertical" />
-
-    <TextView
-            android:id="@+id/tvIp"
-            android:layout_width="@dimen/dp_0"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            tools:text="设备id:" />
+            android:orientation="horizontal">
 
-    <include layout="@layout/view_line_vertical" />
+        <TextView
+                android:id="@+id/tvIp"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="设备id:" />
 
+        <TextView
+                android:id="@+id/tvName"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="设备id:" />
+    </LinearLayout>
 
     <TextView
             android:id="@+id/tvTime"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            tools:text="设备ip：" />
-
-    <include layout="@layout/view_line_vertical" />
-
+            tools:text="设备id:" />
 
 
 </LinearLayout>

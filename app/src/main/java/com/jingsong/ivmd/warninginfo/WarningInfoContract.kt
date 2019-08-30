@@ -1,6 +1,7 @@
 package com.jingsong.ivmd.warninginfo
 
 import android.content.Context
+import com.jingsong.ivmd.model.FaceVideoItemModel
 import com.jingsong.ivmd.model.VideoInfoModel
 import com.jingsong.ivmd.model.WarningModel
 
@@ -14,7 +15,7 @@ import com.jingsong.ivmd.mvp.BaseView
 
 class WarningInfoContract {
     interface View : BaseView{
-        fun setData(data: ArrayList<VideoInfoModel>)
+        fun setData(data: ArrayList<FaceVideoItemModel>)
     }
 
     interface Presenter : BasePresenter<View> {

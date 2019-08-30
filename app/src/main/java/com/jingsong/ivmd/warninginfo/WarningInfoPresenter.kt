@@ -1,8 +1,7 @@
 package com.jingsong.ivmd.warninginfo
 
 import android.content.Context
-import com.jingsong.ivmd.model.VideoInfoModel
-import com.jingsong.ivmd.model.VideoItemModel
+import com.jingsong.ivmd.model.*
 
 import com.jingsong.ivmd.mvp.BasePresenterImpl
 import com.jingsong.ivmd.net.HttpNetUtils
@@ -16,7 +15,7 @@ import com.jingsong.ivmd.net.ProgressSubscriber
 
 class WarningInfoPresenter : BasePresenterImpl<WarningInfoContract.View>(),
     WarningInfoContract.Presenter {
-    internal val allItem: ArrayList<VideoInfoModel> by lazy { ArrayList<VideoInfoModel>() }
+    internal val allItem: ArrayList<FaceVideoItemModel> by lazy { ArrayList<FaceVideoItemModel>() }
     override fun search(cameraIp: String, id: Int, timestamp: Long) {
         val map = HashMap<String, Any>()
         map["cameraIp"] = cameraIp
@@ -25,11 +24,13 @@ class WarningInfoPresenter : BasePresenterImpl<WarningInfoContract.View>(),
         val body = HttpNetUtils.getInstance().getParamsBody(map)
         HttpNetUtils.getInstance().getManager()?.getVideoInfo(body)
             ?.compose(NetworkScheduler.compose())
-            ?.subscribe(object : ProgressSubscriber<VideoItemModel>(mView) {
-                override fun onSuccess(data: VideoItemModel?, code: Int?) {
-                    allItem.add(data?.current!!)
-                    allItem.add(data.preview)
-                    allItem.add(data.next)
+            ?.subscribe(object : ProgressSubscriber<FaceVideoModel>(mView) {
+                override fun onSuccess(data: FaceVideoModel?, code: Int?) {
+                    allItem.add(data?.obj?.current!!)
+                    allItem.add(data.obj.preview)
+                    allItem.add(data.obj.next)
+
+                    mView?.setData(allItem)
                 }
             })
     }

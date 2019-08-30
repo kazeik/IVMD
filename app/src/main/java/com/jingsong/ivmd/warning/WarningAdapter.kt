@@ -84,12 +84,16 @@ class WarningAdapter<A>(private val context: Context) : BaseAdapter<A>() {
 //        rcvList.layoutManager = LinearLayoutManager(context)
 //        rcvList.adapter = ImgItemAdapter<String>(context)
         Glide.with(context).load(entity.cutImageUrl).asBitmap().override(140, 120)
+            .error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher)
             .into(ivImg1)
         Glide.with(context).load(entity.img1).asBitmap().override(140, 120)
+            .error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher)
             .into(ivImg2)
         Glide.with(context).load(entity.img2).asBitmap().override(140, 120)
+            .error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher)
             .into(ivImg3)
         Glide.with(context).load(entity.img3).asBitmap().override(140, 120)
+            .error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher)
             .into(ivImg4)
     }
 }

@@ -4,6 +4,7 @@ package com.jingsong.ivmd.warninginfo
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jingsong.ivmd.R
+import com.jingsong.ivmd.model.FaceVideoItemModel
 import com.jingsong.ivmd.model.VideoInfoModel
 import com.jingsong.ivmd.model.WarningRowModel
 import com.jingsong.ivmd.mvp.MVPBaseActivity
@@ -29,7 +30,7 @@ class WarningInfoActivity : MVPBaseActivity<WarningInfoContract.View, WarningInf
         return R.layout.activity_warning_info
     }
 
-    override fun setData(data: ArrayList<VideoInfoModel>) {
+    override fun setData(data: ArrayList<FaceVideoItemModel>) {
         if (data.isNullOrEmpty()) {
             srvList.visibility = View.GONE
             rlEmptyView.visibility = View.VISIBLE
@@ -46,7 +47,7 @@ class WarningInfoActivity : MVPBaseActivity<WarningInfoContract.View, WarningInf
     override fun onItemEvent(pos: Int) {
         startActivity<PlayerActivity>(
             "name" to mPresenter?.allItem?.get(pos)?.cameraName,
-            "url" to mPresenter?.allItem?.get(pos)?.cameraIp
+            "url" to mPresenter?.allItem?.get(pos)?.fileUrl
         )
     }
 
@@ -55,8 +56,8 @@ class WarningInfoActivity : MVPBaseActivity<WarningInfoContract.View, WarningInf
         startActivity<WarningInfoActivity>()
     }
 
-    private val adapter: WarningInfoAdapter<VideoInfoModel> by lazy {
-        WarningInfoAdapter<VideoInfoModel>()
+    private val adapter: WarningInfoAdapter<FaceVideoItemModel> by lazy {
+        WarningInfoAdapter<FaceVideoItemModel>()
     }
 
     private var warninItem: WarningRowModel? = null

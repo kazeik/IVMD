@@ -44,6 +44,6 @@ interface ApiInter {
     fun getCarNoList(@Body body: RequestBody): Observable<Response<CarWarningModel>>
 
     @POST(ApiUtils.caralarm)
-    fun getVideoInfo(  @Body body: RequestBody): Observable<Response<VideoItemModel>>
+    fun getVideoInfo(  @Body body: RequestBody): Observable<Response<FaceVideoModel>>
 
 }
