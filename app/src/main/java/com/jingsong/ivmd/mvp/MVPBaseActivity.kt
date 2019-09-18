@@ -57,13 +57,13 @@ abstract class MVPBaseActivity<V : BaseView, T : BasePresenterImpl<V>> : AppComp
         initData()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val time = TimeUtil.StringTimeToLong("2019-09-10 23:59:00", TimeUtil.DATE_YMD_HMS)
-        if (System.currentTimeMillis() > time) {
-            myApplicaton?.exitApp()
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        val time = TimeUtil.StringTimeToLong("2019-09-30 23:59:00", TimeUtil.DATE_YMD_HMS)
+//        if (System.currentTimeMillis() > time) {
+//            myApplicaton?.exitApp()
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()

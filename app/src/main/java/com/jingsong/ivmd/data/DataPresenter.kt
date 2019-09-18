@@ -35,10 +35,10 @@ class DataPresenter : BasePresenterImpl<DataContract.View>(), DataContract.Prese
         startTime: String?,
         endTime: String?
     ) {
-        if (TextUtils.isEmpty(ip)) {
-            mView?.showMsg("设备ip地址不能为空")
-            return
-        }
+//        if (TextUtils.isEmpty(ip)) {
+//            mView?.showMsg("设备ip地址不能为空")
+//            return
+//        }
 
         if (TextUtils.isEmpty(tableTime)) {
             mView?.showMsg("查询日期不能为空")

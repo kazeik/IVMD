@@ -56,7 +56,7 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
     }
 
     override fun setHomeData(data: HomeDataModel) {
-        if (allrows.isNullOrEmpty()) {
+        if (data.rows.isNullOrEmpty()) {
             srvList.visibility = View.GONE
             rlEmptyView.visibility = View.VISIBLE
             toast("未查到数据")
@@ -75,6 +75,8 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
     override fun setVideoListData(data: VideoListModel) {
         val mItems = ArrayList<String>()
         ips.clear()
+        ips.add("")
+        mItems.add("")
         data.obj.forEach {
             if (it.f == 1) {
                 mItems.add(it.name)
@@ -108,7 +110,7 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
     private var startDateStr: String? = ""
     private var ipAdd: String? = ""
 
-    private val adapter: HomeDataAdapter<RowsModel> by lazy { HomeDataAdapter<RowsModel>(this!!) }
+    private val adapter: HomeDataAdapter<RowsModel> by lazy { HomeDataAdapter<RowsModel>(this) }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -227,6 +229,8 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
 
         ips.clear()
         val mItems = ArrayList<String>()
+        mItems.add("")
+        ips.add("")
         ApiUtils.videoListMode?.obj?.forEach {
             if (it.f == 1) {
                 mItems.add(it.name)
@@ -252,6 +256,7 @@ class DataActivity : MVPBaseActivity<DataContract.View, DataPresenter>(), DataCo
                 ipAdd = ips[0]
             }
         }
+        mPresenter?.search(ipAdd, startDateStr, pageNo, startTime, endTime)
     }
 
 }

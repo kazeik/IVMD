@@ -2,6 +2,7 @@ package com.jingsong.ivmd.warninginfo
 
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.jingsong.ivmd.R
 import com.jingsong.ivmd.model.FaceVideoItemModel
@@ -79,5 +80,12 @@ class WarningInfoActivity : MVPBaseActivity<WarningInfoContract.View, WarningInf
         adapter.itemEventListener = this
 
         mPresenter?.search(warninItem?.cameraIp!!, warninItem?.id!!, warninItem?.timestamp!!)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
